@@ -18,13 +18,13 @@ void redirect(void)
 Test(conversion_specifiers, normal, .init = redirect)
 {
     char str[4] = "b\na";
-    char *format = "%%%s%S%i%i%i%d%b%o%u%x%Xl%p";
-    char *result = "%ab\\012\\177-214748364802147483647-4101112f1Fl0x2f";
+    char *format = "%%%s%S%i%i%i%d%b%o%u%x%Xl%p%c";
+    char *result = "%ab\\012\\177-214748364802147483647-4101112f1Fl0x2fM";
     void *ptr = (void *)47;
     int i = 2147483647;
     int j = -2147483648;
 
     str[2] = 127;
-    my_printf(format, "a", str, j, 0, i, -4, 2, 9, 12, 15, 31, ptr);
+    my_printf(format, "a", str, j, 0, i, -4, 2, 9, 12, 15, 31, ptr, 'M');
     cr_assert_stdout_eq_str(result);
 }

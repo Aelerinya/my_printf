@@ -45,6 +45,6 @@ void print_data(va_list ap, char *str)
         my_putnbr_base(va_arg(ap, unsigned int), "0123456789ABCDEF");
     if (*str == 'p')
         my_putptr(va_arg(ap, void *));
-    if (*str == '%')
-        my_putchar('%');
+    if (*str == '%' || *str == 'c')
+        my_putchar((*str == 'c') ? va_arg(ap, unsigned int) : '%');
 }
