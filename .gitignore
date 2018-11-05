@@ -6,3 +6,4 @@ vgcore.*
 *.gcno
 *.o
 libmy.a
+main.c
