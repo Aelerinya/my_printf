@@ -22,7 +22,7 @@ static void disp_buggy_number(void)
     my_putchar('8');
 }
 
-static void int_print(int nb)
+static void int_print(int nb, int *i)
 {
     char leading_zeros = 1;
     int digit;
@@ -36,23 +36,24 @@ static void int_print(int nb)
             leading_zeros = 0;
         }
         if (leading_zeros == 0) {
-            my_putchar(digit + 48);
+            (*i)++, my_putchar(digit + 48);
         }
     }
 }
 
-int my_put_nbr(int nb)
+int my_put_nbr(int nb, int *i)
 {
     if (nb == 0) {
-        my_putchar('0');
+        (*i)++, my_putchar('0');
     } else if (nb == -2147483648) {
         disp_buggy_number();
+        *i += 11;
     } else {
         if (nb < 0) {
-            my_putchar('-');
+            (*i)++, my_putchar('-');
             nb = -nb;
         }
-        int_print(nb);
+        int_print(nb, i);
     }
     return (0);
 }

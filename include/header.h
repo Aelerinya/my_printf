@@ -8,10 +8,12 @@
 #include <stdarg.h>
 
 int my_printf(const char *format, ...);
-int my_putstr(char const *str);
+int my_putstr(char const *str, int *i);
 void my_putchar(char c);
-void print_data(va_list ap, char *str);
-int my_put_nbr(int nb);
-int my_putnbr_base(unsigned int nbr, char const *base);
-int my_showstr(char const *str);
-void my_putptr(void *ptr);
+int my_put_nbr(int nb, int *i);
+int my_putnbr_base(unsigned int nbr, char const *base, int *i);
+int my_showstr(char const *str, int *i);
+void my_putptr(void *ptr, int *i);
+
+void print_data(va_list ap, char **str, int *i);
+void modifier(va_list ap, char **str, int *i);

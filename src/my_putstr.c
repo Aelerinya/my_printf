@@ -7,10 +7,10 @@
 
 void my_putchar(char c);
 
-int my_putstr(char const *str)
+int my_putstr(char const *str, int *j)
 {
     for (int i = 0; str[i] != '\0'; i++) {
-        my_putchar(str[i]);
+        (*j)++, my_putchar(str[i]);
     }
     return (0);
 }

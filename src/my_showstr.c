@@ -7,7 +7,7 @@
 
 #include "header.h"
 
-int my_showstr(char const *str)
+int my_showstr(char const *str, int *j)
 {
     char *octal = "01234567";
 
@@ -17,8 +17,9 @@ int my_showstr(char const *str)
             my_putchar(octal[str[i] / 64]);
             my_putchar(octal[str[i] / 8 % 8]);
             my_putchar(octal[str[i] % 8]);
+            (*j) += 4;
         } else {
-            my_putchar(str[i]);
+            (*j)++, my_putchar(str[i]);
         }
     }
     return (0);
