@@ -23,7 +23,7 @@ $(NAME): $(OBJ)
 	ar rc libmy.a $(OBJ)
 
 $(OBJ):
-	gcc -c $(SRC) -Iinclude/
+	gcc -c $(SRC) -Iinclude/ -Wall -Wextra -pedantic
 
 clean:
 	rm -f $(OBJ)
@@ -32,11 +32,11 @@ fclean: clean
 	rm -f $(NAME)
 
 tests_run:
-	@gcc -c $(SRC) $(TEST) --coverage -Iinclude
+	@gcc -c $(SRC) $(TEST) --coverage -Iinclude -Wall -Wextra -pedantic
 	@gcc -o tests_run $(TEST_OBJ) --coverage -lcriterion
 	@./tests_run
 	@rm tests_run $(TEST_OBJ)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re tests_run
