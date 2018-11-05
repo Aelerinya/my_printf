@@ -18,8 +18,8 @@ void redirect(void)
 Test(conversion_specifiers, normal, .init = redirect)
 {
     char str[4] = "b\na";
-    char *format = "%s%S%i%i%i%d%b%o%u%x%Xl";
-    char *result = "ab\\012\\177-214748364802147483647-4101112f1Fl";
+    char *format = "%%%s%S%i%i%i%d%b%o%u%x%Xl";
+    char *result = "%ab\\012\\177-214748364802147483647-4101112f1Fl";
     int i = 2147483647;
     int j = -2147483648;
 
