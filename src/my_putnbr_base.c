@@ -7,7 +7,7 @@
 
 #include "header.h"
 
-int my_putnbr_base(unsigned int nbr, char const *base, int *i)
+int my_putnbr_base(unsigned long long int nbr, char const *base, int *i)
 {
     int digit;
     int base_length;

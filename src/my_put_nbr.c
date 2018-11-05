@@ -41,7 +41,7 @@ static void int_print(int nb, int *i)
     }
 }
 
-int my_put_nbr(int nb, int *i)
+int my_put_nbr(long long int nb, int *i)
 {
     if (nb == 0) {
         (*i)++, my_putchar('0');

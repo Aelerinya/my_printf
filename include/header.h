@@ -10,8 +10,8 @@
 int my_printf(const char *format, ...);
 int my_putstr(char const *str, int *i);
 void my_putchar(char c);
-int my_put_nbr(int nb, int *i);
-int my_putnbr_base(unsigned int nbr, char const *base, int *i);
+int my_put_nbr(long long int nb, int *i);
+int my_putnbr_base(unsigned long long int nbr, char const *base, int *i);
 int my_showstr(char const *str, int *i);
 void my_putptr(void *ptr, int *i);
 
