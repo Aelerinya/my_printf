@@ -1,0 +1,8 @@
+a.out
+unit_test
+vgcore.*
+*~
+*.gcda
+*.gcno
+*.o
+libmy.a
