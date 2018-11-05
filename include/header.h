@@ -14,3 +14,4 @@ void print_data(va_list ap, char *str);
 int my_put_nbr(int nb);
 int my_putnbr_base(unsigned int nbr, char const *base);
 int my_showstr(char const *str);
+void my_putptr(void *ptr);
