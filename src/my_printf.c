@@ -7,6 +7,7 @@
 */
 
 #include <stdarg.h>
+#include <stdlib.h>
 #include "header.h"
 
 int my_printf(const char *format, ...)
@@ -47,32 +48,38 @@ void modifier(va_list ap, char **str, int *i)
     print_data(ap, str, i);
 }
 
+char *get_length_modifier(char **str)
+{
+    char *modifier;
+
+    modifier = malloc(sizeof(char) * 3);
+    for (int i = 0; i < 3; modifier[i++] = '\0');
+    if (**str == 'j' || **str == 'z' || **str == 't')
+        modifier[0] = **str, (*str)++;
+    else if (**str == 'h' || **str == 'l') {
+        modifier[0] = **str, (*str)++;
+        if (**str == 'h' || **str == 'l')
+            modifier[1] = **str, (*str)++;
+    }
+    return modifier;
+}
+
 void print_data(va_list ap, char **str, int *i)
 {
-    int *ptr;
+    char *modifier;
 
+    if (**str == '%' || **str == 'c')
+        (*i)++, my_putchar((**str == 'c') ? va_arg(ap, unsigned int) : '%');
+    if (**str == 'p')
+        my_putptr(va_arg(ap, void *), i);
     if (**str == 's')
         my_putstr(va_arg(ap, char *), i);
     if (**str == 'S')
         my_showstr(va_arg(ap, char *), i);
-    if (**str == 'i' || **str == 'd')
-        my_put_nbr(va_arg(ap, int), i);
-    if (**str == 'b')
-        my_putnbr_base(va_arg(ap, unsigned int), "01", i);
-    if (**str == 'o')
-        my_putnbr_base(va_arg(ap, unsigned int), "01234567", i);
-    if (**str == 'u')
-        my_putnbr_base(va_arg(ap, unsigned int), "0123456789", i);
-    if (**str == 'x')
-        my_putnbr_base(va_arg(ap, unsigned int), "0123456789abcdef", i);
-    if (**str == 'X')
-        my_putnbr_base(va_arg(ap, unsigned int), "0123456789ABCDEF", i);
-    if (**str == 'p')
-        my_putptr(va_arg(ap, void *), i);
-    if (**str == '%' || **str == 'c')
-        (*i)++, my_putchar((**str == 'c') ? va_arg(ap, unsigned int) : '%');
-    if (**str == 'n') {
-        ptr = va_arg(ap, int *);
-        *ptr = *i;
-    }
+    modifier = get_length_modifier(str);
+    if (**str == 'i' || **str == 'd' || **str == 'n')
+        print_idn(ap, modifier, str, i);
+    if (**str == 'b' || **str == 'o' || **str == 'u'
+    || **str == 'x' || **str == 'X')
+        print_boux(ap, modifier, str, i);
 }

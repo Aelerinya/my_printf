@@ -17,3 +17,7 @@ void my_putptr(void *ptr, int *i);
 
 void print_data(va_list ap, char **str, int *i);
 void modifier(va_list ap, char **str, int *i);
+char *get_length_modifier(char **str);
+
+void print_boux(va_list ap, char *modifier, char **str, int *i);
+void print_idn(va_list ap, char *modifier, char **str, int *i);
