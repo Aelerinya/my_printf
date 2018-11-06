@@ -77,9 +77,11 @@ void print_data(va_list ap, char **str, int *i)
     if (**str == 'S')
         my_showstr(va_arg(ap, char *), i);
     modifier = get_length_modifier(str);
-    if (**str == 'i' || **str == 'd' || **str == 'n')
-        print_idn(ap, modifier, str, i);
+    if (**str == 'i' || **str == 'd')
+        print_id(ap, modifier, i);
     if (**str == 'b' || **str == 'o' || **str == 'u'
     || **str == 'x' || **str == 'X')
         print_boux(ap, modifier, str, i);
+    if (**str == 'n')
+        print_n(ap, modifier, i);
 }
