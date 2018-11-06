@@ -17,10 +17,8 @@ int my_printf(const char *format, ...)
 
     va_start(ap, format);
     for (char *str = (char *)format; *str != '\0'; str++) {
-        if (*str == '%') {
-            str++;
-            modifier(ap, &str, &i);
-        }
+        if (*str == '%')
+            str++, modifier(ap, &str, &i);
         else
             i++, my_putchar(*str);
     }
@@ -80,7 +78,7 @@ void print_data(va_list ap, char **str, int *i)
     if (**str == 'i' || **str == 'd')
         print_id(ap, modifier, i);
     if (**str == 'b' || **str == 'o' || **str == 'u'
-    || **str == 'x' || **str == 'X')
+        || **str == 'x' || **str == 'X')
         print_boux(ap, modifier, str, i);
     if (**str == 'n')
         print_n(ap, modifier, i);
