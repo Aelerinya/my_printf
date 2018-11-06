@@ -49,6 +49,8 @@ void modifier(va_list ap, char **str, int *i)
 
 void print_data(va_list ap, char **str, int *i)
 {
+    int *ptr;
+
     if (**str == 's')
         my_putstr(va_arg(ap, char *), i);
     if (**str == 'S')
@@ -69,4 +71,8 @@ void print_data(va_list ap, char **str, int *i)
         my_putptr(va_arg(ap, void *), i);
     if (**str == '%' || **str == 'c')
         (*i)++, my_putchar((**str == 'c') ? va_arg(ap, unsigned int) : '%');
+    if (**str == 'n') {
+        ptr = va_arg(ap, int *);
+        *ptr = *i;
+    }
 }
