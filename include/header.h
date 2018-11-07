@@ -7,6 +7,16 @@
 
 #include <stdarg.h>
 
+typedef struct flags {
+char alternate;
+char zero_padding;
+char left_adjusting;
+char space;
+char force_sign;
+int field_width;
+int precision;
+} flags_t;
+
 int my_printf(const char *format, ...);
 int my_putstr(char const *str, int *i);
 void my_putchar(char c);
@@ -15,8 +25,11 @@ char *my_nbr_base(unsigned long long int nbr, char const *base);
 char *my_showstr(char const *str);
 char *my_putptr(void *ptr);
 char *my_charstr(char c);
-char *my_strcpy(char const *dest, char *str);
 
+char *my_strcpy(char const *dest, char *str);
+long int my_strtol(const char *nptr, char **endptr);
+
+flags_t *get_flags(char **str);
 char *conversion_specifier(va_list ap, char **str, int *i);
 void modifier(va_list ap, char **str, int *i);
 char *get_length_modifier(char **str);
