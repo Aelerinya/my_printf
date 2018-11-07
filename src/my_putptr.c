@@ -5,22 +5,20 @@
 ** Print a pointer in hexadecimal
 */
 
+#include <stdlib.h>
 #include "header.h"
 
-static void rec_put_ptr(long int ptr, int *i)
+char *my_putptr(void *ptr)
 {
-    int digit;
-    char *hexa = "0123456789abcdef";
+    char *result;
+    char *conversion;
+    int size;
 
-    digit = ptr % 16;
-    ptr = ptr / 16;
-    if (ptr > 0)
-        rec_put_ptr(ptr, i);
-    (*i)++, my_putchar(hexa[digit]);
-}
-
-void my_putptr(void *ptr, int *i)
-{
-    my_putstr("0x", i);
-    rec_put_ptr((long int)ptr, i);
+    conversion = my_nbr_base((unsigned long long int)ptr, "0123456789abcdef");
+    for (size = 0; conversion[size] != '\0'; size++);
+    result = malloc(sizeof(char) * (size + 3));
+    my_strcpy(result, "0x");
+    my_strcpy(result + 2, conversion);
+    free(conversion);
+    return result;
 }

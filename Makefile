@@ -7,11 +7,13 @@
 
 SRC =	src/my_printf.c \
 	src/my_putchar.c \
-	src/my_put_nbr.c \
+	src/my_nbr_to_str.c \
 	src/my_putstr.c \
 	src/my_showstr.c \
-	src/my_putnbr_base.c \
+	src/my_nbr_base.c \
 	src/my_putptr.c \
+	src/my_charstr.c \
+	src/my_strcpy.c \
 	src/integer_conversion.c
 OBJ = $(notdir $(SRC:.c=.o))
 TEST = 	tests/test_conversion_specifier.c \

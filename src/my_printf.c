@@ -29,6 +29,7 @@ int my_printf(const char *format, ...)
 void modifier(va_list ap, char **str, int *i)
 {
     va_list copy;
+    char *result;
 
     if (**str == '#') {
         if ((*str)[1] == 'x')
@@ -43,7 +44,9 @@ void modifier(va_list ap, char **str, int *i)
         }
         (*str)++;
     }
-    print_data(ap, str, i);
+    result = conversion_specifier(ap, str, i);
+    if (result != NULL)
+        my_putstr(result, i);
 }
 
 char *get_length_modifier(char **str)
@@ -62,24 +65,25 @@ char *get_length_modifier(char **str)
     return modifier;
 }
 
-void print_data(va_list ap, char **str, int *i)
+char *conversion_specifier(va_list ap, char **str, int *i)
 {
     char *modifier;
 
     if (**str == '%' || **str == 'c')
-        (*i)++, my_putchar((**str == 'c') ? va_arg(ap, unsigned int) : '%');
+        return my_charstr((**str == 'c') ? va_arg(ap, unsigned int) : '%');
     if (**str == 'p')
-        my_putptr(va_arg(ap, void *), i);
+        return my_putptr(va_arg(ap, void *));
     if (**str == 's')
-        my_putstr(va_arg(ap, char *), i);
+        return va_arg(ap, char *);
     if (**str == 'S')
-        my_showstr(va_arg(ap, char *), i);
+        return my_showstr(va_arg(ap, char *));
     modifier = get_length_modifier(str);
     if (**str == 'i' || **str == 'd')
-        print_id(ap, modifier, i);
+        return get_id(ap, modifier);
     if (**str == 'b' || **str == 'o' || **str == 'u'
         || **str == 'x' || **str == 'X')
-        print_boux(ap, modifier, str, i);
+        return get_boux(ap, modifier, str);
     if (**str == 'n')
         print_n(ap, modifier, i);
+    return (NULL);
 }

@@ -6,7 +6,7 @@
 */
 
 #include <stdarg.h>
-#include <stdio.h>
+#include <stdlib.h>
 #include <inttypes.h>
 #include <stddef.h>
 #include "header.h"
@@ -24,49 +24,49 @@ static char *get_base(char **str)
     return "0123456789";
 }
 
-void print_boux(va_list ap, char *modifier, char **str, int *i)
+char *get_boux(va_list ap, char *modifier, char **str)
 {
     switch (*modifier) {
     case 'l' :
         if (modifier[1] == 'l')
-            my_putnbr_base(va_arg(ap, unsigned long long), get_base(str), i);
+            return my_nbr_base(va_arg(ap, unsigned long long), get_base(str));
         else
-            my_putnbr_base(va_arg(ap, unsigned long), get_base(str), i);
+            return my_nbr_base(va_arg(ap, unsigned long), get_base(str));
         break;
     case 'j' :
-        my_putnbr_base(va_arg(ap, uintmax_t), get_base(str), i);
+        return my_nbr_base(va_arg(ap, uintmax_t), get_base(str));
         break;
     case 'z' :
-        my_putnbr_base(va_arg(ap, ssize_t), get_base(str), i);
+        return my_nbr_base(va_arg(ap, ssize_t), get_base(str));
         break;
     case 't' :
-        my_putnbr_base(va_arg(ap, ptrdiff_t), get_base(str), i);
+        return my_nbr_base(va_arg(ap, ptrdiff_t), get_base(str));
         break;
     default :
-        my_putnbr_base(va_arg(ap, unsigned int), get_base(str), i);
+        return my_nbr_base(va_arg(ap, unsigned int), get_base(str));
     }
 }
 
-void print_id(va_list ap, char *modifier, int *i)
+char *get_id(va_list ap, char *modifier)
 {
     switch (*modifier) {
     case 'l' :
         if (modifier[1] == 'l')
-            my_put_nbr(va_arg(ap, long long), i);
+            return my_nbr_to_str(va_arg(ap, long long));
         else
-            my_put_nbr(va_arg(ap, long), i);
+            return my_nbr_to_str(va_arg(ap, long));
         break;
     case 'j' :
-        my_put_nbr(va_arg(ap, intmax_t), i);
+        return my_nbr_to_str(va_arg(ap, intmax_t));
         break;
     case 'z' :
-        my_put_nbr(va_arg(ap, size_t), i);
+        return my_nbr_to_str(va_arg(ap, size_t));
         break;
     case 't' :
-        my_put_nbr(va_arg(ap, ptrdiff_t), i);
+        return my_nbr_to_str(va_arg(ap, ptrdiff_t));
         break;
     default :
-        my_put_nbr(va_arg(ap, int), i);
+        return my_nbr_to_str(va_arg(ap, int));
     }
 }
 
