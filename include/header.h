@@ -28,13 +28,16 @@ char *my_charstr(char c);
 
 char *my_strcpy(char const *dest, char *str);
 long int my_strtol(const char *nptr, char **endptr);
+int my_strlen(char *str);
 
 flags_t *get_flags(char **str);
 char *conversion_specifier(va_list ap, char **str, int *i);
-void modifier(va_list ap, char **str, int *i);
+int print_format(va_list ap, char **str, int *i);
 char *get_length_modifier(char **str);
 
 char *get_boux(va_list ap, char *modifier, char **str);
 char *get_id(va_list ap, char *modifier);
-void print_n(va_list ap, char *modifier, int *i);
+char *print_n(va_list ap, char *modifier, int *i);
 void print_n2(va_list ap, char *modifier, int *i);
+
+void alternate_form(char **str, char **result);

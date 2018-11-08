@@ -14,10 +14,15 @@ SRC =	src/my_printf.c \
 	src/my_putptr.c \
 	src/my_charstr.c \
 	src/my_strcpy.c \
-	src/integer_conversion.c
+	src/integer_conversion.c \
+	src/my_strtol.c \
+	src/flags_parser.c \
+	src/flag_modifiers.c \
+	src/my_strlen.c
 OBJ = $(notdir $(SRC:.c=.o))
 TEST = 	tests/test_conversion_specifier.c \
-	tests/test_length_modifier.c
+	tests/test_length_modifier.c \
+	tests/test_flags.c
 TEST_OBJ = $(notdir $(SRC:.c=.o)) $(notdir $(TEST:.c=.o))
 NAME = libmy.a
 
