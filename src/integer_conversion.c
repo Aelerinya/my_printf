@@ -70,8 +70,11 @@ char *get_id(va_list ap, char *modifier)
     }
 }
 
-void print_n(va_list ap, char *modifier, int *i)
+char *print_n(va_list ap, char *modifier, int *i)
 {
+    char *empty = malloc(sizeof(char));
+
+    empty[0] = '\0';
     switch (*modifier) {
     case 'h' :
         if (modifier[1] == 'h')
@@ -88,6 +91,7 @@ void print_n(va_list ap, char *modifier, int *i)
     default :
         print_n2(ap, modifier, i);
     }
+    return empty;
 }
 
 void print_n2(va_list ap, char *modifier, int *i)
