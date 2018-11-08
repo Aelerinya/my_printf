@@ -21,7 +21,7 @@ int my_printf(const char *format, ...);
 int my_putstr(char const *str, int *i);
 void my_putchar(char c);
 char *my_nbr_to_str(long long int nb, flags_t *flags);
-char *my_nbr_base(unsigned long long int nbr, char const *base);
+char *my_nbr_base(unsigned long long int nbr, char const *base, flags_t *flags);
 char *my_showstr(char const *str, flags_t *flags);
 char *my_putptr(void *ptr);
 char *my_charstr(char c);
@@ -36,7 +36,7 @@ char *conversion_specifier(va_list ap, char **str, int *i, flags_t *flags);
 int print_format(va_list ap, char **str, int *i);
 char *get_length_modifier(char **str);
 
-char *get_boux(va_list ap, char *modifier, char **str);
+char *get_boux(va_list ap, char *modifier, char **str, flags_t *flags);
 char *get_id(va_list ap, char *modifier, flags_t *flags);
 char *print_n(va_list ap, char *modifier, int *i);
 void print_n2(va_list ap, char *modifier, int *i);

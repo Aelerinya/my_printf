@@ -78,7 +78,7 @@ char *conversion_specifier(va_list ap, char **str, int *i, flags_t *flags)
         return get_id(ap, modifier, flags);
     if (**str == 'b' || **str == 'o' || **str == 'u'
         || **str == 'x' || **str == 'X')
-        return get_boux(ap, modifier, str);
+        return get_boux(ap, modifier, str, flags);
     if (**str == 'n')
         return print_n(ap, modifier, i);
     return (NULL);

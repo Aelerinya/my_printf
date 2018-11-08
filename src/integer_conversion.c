@@ -11,7 +11,7 @@
 #include <stddef.h>
 #include "header.h"
 
-static char *get_base(char **str)
+static char *b(char **str)
 {
     if (**str == 'b')
         return "01";
@@ -24,26 +24,26 @@ static char *get_base(char **str)
     return "0123456789";
 }
 
-char *get_boux(va_list ap, char *modifier, char **str)
+char *get_boux(va_list ap, char *modifier, char **str, flags_t *flags)
 {
     switch (*modifier) {
     case 'l' :
         if (modifier[1] == 'l')
-            return my_nbr_base(va_arg(ap, unsigned long long), get_base(str));
+            return my_nbr_base(va_arg(ap, unsigned long long), b(str), flags);
         else
-            return my_nbr_base(va_arg(ap, unsigned long), get_base(str));
+            return my_nbr_base(va_arg(ap, unsigned long), b(str), flags);
         break;
     case 'j' :
-        return my_nbr_base(va_arg(ap, uintmax_t), get_base(str));
+        return my_nbr_base(va_arg(ap, uintmax_t), b(str), flags);
         break;
     case 'z' :
-        return my_nbr_base(va_arg(ap, ssize_t), get_base(str));
+        return my_nbr_base(va_arg(ap, ssize_t), b(str), flags);
         break;
     case 't' :
-        return my_nbr_base(va_arg(ap, ptrdiff_t), get_base(str));
+        return my_nbr_base(va_arg(ap, ptrdiff_t), b(str), flags);
         break;
     default :
-        return my_nbr_base(va_arg(ap, unsigned int), get_base(str));
+        return my_nbr_base(va_arg(ap, unsigned int), b(str), flags);
     }
 }
 

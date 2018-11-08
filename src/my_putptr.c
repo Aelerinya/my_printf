@@ -10,15 +10,19 @@
 
 char *my_putptr(void *ptr)
 {
+    unsigned long long nbr = (unsigned long long)ptr;
+    char *hexa = "0123456789abcdef";
     char *result;
-    char *conversion;
-    int size;
+    int size = 4;
+    unsigned long long power;
 
-    conversion = my_nbr_base((unsigned long long int)ptr, "0123456789abcdef");
-    for (size = 0; conversion[size] != '\0'; size++);
-    result = malloc(sizeof(char) * (size + 3));
+    for (power = 16; power <= nbr; power *= 16, size++);
+    result = malloc(sizeof(char) * size);
     my_strcpy(result, "0x");
-    my_strcpy(result + 2, conversion);
-    free(conversion);
-    return result;
+    result[size - 1] = '\0';
+    for (int i = size - 2; i >= 2; i--) {
+        result[i] = hexa[nbr % 16];
+        nbr /= 16;
+    }
+    return (result);
 }
