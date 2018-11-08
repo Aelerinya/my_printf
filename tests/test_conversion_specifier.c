@@ -49,9 +49,3 @@ Test(conversion_specifiers, length, .init = redirect)
     ptr, 'M');
     cr_assert_eq(result_size, size);
 }
-
-Test(flag, alternate, .init = redirect)
-{
-    my_printf("%#x %#X %#o %#o", 15, 0, 9, 0);
-    cr_assert_stdout_eq_str("0xf 0X0 011 0");
-}
