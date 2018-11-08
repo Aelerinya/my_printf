@@ -47,26 +47,26 @@ char *get_boux(va_list ap, char *modifier, char **str)
     }
 }
 
-char *get_id(va_list ap, char *modifier)
+char *get_id(va_list ap, char *modifier, flags_t *flags)
 {
     switch (*modifier) {
     case 'l' :
         if (modifier[1] == 'l')
-            return my_nbr_to_str(va_arg(ap, long long));
+            return my_nbr_to_str(va_arg(ap, long long), flags);
         else
-            return my_nbr_to_str(va_arg(ap, long));
+            return my_nbr_to_str(va_arg(ap, long), flags);
         break;
     case 'j' :
-        return my_nbr_to_str(va_arg(ap, intmax_t));
+        return my_nbr_to_str(va_arg(ap, intmax_t), flags);
         break;
     case 'z' :
-        return my_nbr_to_str(va_arg(ap, size_t));
+        return my_nbr_to_str(va_arg(ap, size_t), flags);
         break;
     case 't' :
-        return my_nbr_to_str(va_arg(ap, ptrdiff_t));
+        return my_nbr_to_str(va_arg(ap, ptrdiff_t), flags);
         break;
     default :
-        return my_nbr_to_str(va_arg(ap, int));
+        return my_nbr_to_str(va_arg(ap, int), flags);
     }
 }
 

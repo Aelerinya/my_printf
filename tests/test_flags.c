@@ -49,3 +49,9 @@ Test(flag, invalid_syntax, .init = redirect)
     cr_assert_eq(my_printf("%1-1i", 3), 84);
     cr_assert_eq(my_printf("%.3.2i", 3), 84);
 }
+
+Test(flag, signed_conversions, .init = redirect)
+{
+    my_printf("%+i % i %+ d % i %+i", 5, 3, 0, -1, -666);
+    cr_assert_stdout_eq_str("+5  3 +0 -1 -666");
+}

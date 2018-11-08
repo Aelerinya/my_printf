@@ -36,7 +36,7 @@ int print_format(va_list ap, char **str, int *i)
     char *result;
     flags_t *flags = get_flags(str);
 
-    result = conversion_specifier(ap, str, i);
+    result = conversion_specifier(ap, str, i, flags);
     if (result == NULL)
         return (-1);
     if (flags->alternate)
@@ -61,7 +61,7 @@ char *get_length_modifier(char **str)
     return modifier;
 }
 
-char *conversion_specifier(va_list ap, char **str, int *i)
+char *conversion_specifier(va_list ap, char **str, int *i, flags_t *flags)
 {
     char *modifier;
 
@@ -75,7 +75,7 @@ char *conversion_specifier(va_list ap, char **str, int *i)
         return my_showstr(va_arg(ap, char *));
     modifier = get_length_modifier(str);
     if (**str == 'i' || **str == 'd')
-        return get_id(ap, modifier);
+        return get_id(ap, modifier, flags);
     if (**str == 'b' || **str == 'o' || **str == 'u'
         || **str == 'x' || **str == 'X')
         return get_boux(ap, modifier, str);
