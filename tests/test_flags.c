@@ -35,7 +35,7 @@ Test(flag, getflags)
     cr_assert_eq(flags->force_sign, 1);
     free(flags);
     flags = get_flags(&str2);
-    cr_assert_eq(flags->precision, 0);
+    cr_assert_eq(flags->precision, -1);
     free(flags);
 }
 
