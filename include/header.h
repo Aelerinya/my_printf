@@ -22,10 +22,10 @@ int my_putstr(char const *str, int *i);
 void my_putchar(char c);
 char *my_nbr_to_str(long long int nb, flags_t *flags);
 char *my_nbr_base(unsigned long long int nbr, char const *base);
-char *my_showstr(char const *str);
+char *my_showstr(char const *str, flags_t *flags);
 char *my_putptr(void *ptr);
 char *my_charstr(char c);
-char *my_strdup(char *str);
+char *my_strdup(char *str, flags_t *flags);
 
 char *my_strcpy(char const *dest, char *str);
 long int my_strtol(const char *nptr, char **endptr);

@@ -8,18 +8,11 @@
 #include "header.h"
 #include <stdlib.h>
 
-char *my_showstr(char const *str)
+static void fill_string(char const *str, char *result)
 {
-    char *result;
-    char *octal = "01234567";
-    int size = 0;
     int k = 0;
+    char *octal = "01234567";
 
-    for (int i = 0; str[i] != '\0'; i++, size++)
-        if (str[i] < 32 || str[i] >= 127)
-            size += 3;
-    result = malloc(sizeof(char) * (size + 1));
-    result[size] = '\0';
     for (int j = 0; str[j] != '\0'; j++) {
         if (str[j] < 32 || str[j] >= 127) {
             result[k] = 92;
@@ -30,5 +23,20 @@ char *my_showstr(char const *str)
         } else
             result[k] = str[j], k++;
     }
+}
+
+char *my_showstr(char const *str, flags_t *flags)
+{
+    char *result;
+    int size = 0;
+
+    for (int i = 0; str[i] != '\0'; i++, size++)
+        if (str[i] < 32 || str[i] >= 127)
+            size += 3;
+    result = malloc(sizeof(char) * (size + 1));
+    result[size] = '\0';
+    fill_string(str, result);
+    if (flags->precision != -1 && flags->precision < size)
+        result[flags->precision] = '\0';
     return (result);
 }

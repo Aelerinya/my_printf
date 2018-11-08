@@ -70,9 +70,9 @@ char *conversion_specifier(va_list ap, char **str, int *i, flags_t *flags)
     if (**str == 'p')
         return my_putptr(va_arg(ap, void *));
     if (**str == 's')
-        return my_strdup(va_arg(ap, char *));
+        return my_strdup(va_arg(ap, char *), flags);
     if (**str == 'S')
-        return my_showstr(va_arg(ap, char *));
+        return my_showstr(va_arg(ap, char *), flags);
     modifier = get_length_modifier(str);
     if (**str == 'i' || **str == 'd')
         return get_id(ap, modifier, flags);

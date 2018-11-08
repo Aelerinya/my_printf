@@ -55,3 +55,9 @@ Test(flag, signed_conversions, .init = redirect)
     my_printf("%+i % i %+ d % i %+i", 5, 3, 0, -1, -666);
     cr_assert_stdout_eq_str("+5  3 +0 -1 -666");
 }
+
+Test(flag, precision, .init = redirect)
+{
+    my_printf("%.2s %.2s %.4S %.2S", "abc", "a", "\n", "\n");
+    cr_assert_stdout_eq_str("ab a \\012 \\0");
+}
