@@ -1,3 +1,4 @@
+
 /*
 ** EPITECH PROJECT, 2018
 ** my_printf
@@ -17,36 +18,31 @@ int my_printf(const char *format, ...)
 
     va_start(ap, format);
     for (char *str = (char *)format; *str != '\0'; str++) {
-        if (*str == '%')
-            str++, modifier(ap, &str, &i);
-        else
+        if (*str == '%' && str[1] == '%')
+            str++, i++, my_putchar('%');
+        else if (*str == '%') {
+            str++;
+            if (print_format(ap, &str, &i) == -1)
+                return (84);
+        } else
             i++, my_putchar(*str);
     }
     va_end(ap);
     return (i);
 }
 
-void modifier(va_list ap, char **str, int *i)
+int print_format(va_list ap, char **str, int *i)
 {
-    va_list copy;
     char *result;
+    flags_t *flags = get_flags(str);
 
-    if (**str == '#') {
-        if ((*str)[1] == 'x')
-            my_putstr("0x", i);
-        if ((*str)[1] == 'X')
-            my_putstr("0X", i);
-        if ((*str)[1] == 'o') {
-            va_copy(copy, ap);
-            if (va_arg(copy, unsigned int) != 0)
-                my_putstr("0", i);
-            va_end(copy);
-        }
-        (*str)++;
-    }
     result = conversion_specifier(ap, str, i);
-    if (result != NULL)
-        my_putstr(result, i);
+    if (result == NULL)
+        return (-1);
+    if (flags->alternate)
+        alternate_form(str, &result);
+    my_putstr(result, i);
+    return (0);
 }
 
 char *get_length_modifier(char **str)
@@ -69,8 +65,8 @@ char *conversion_specifier(va_list ap, char **str, int *i)
 {
     char *modifier;
 
-    if (**str == '%' || **str == 'c')
-        return my_charstr((**str == 'c') ? va_arg(ap, unsigned int) : '%');
+    if (**str == 'c')
+        return my_charstr(va_arg(ap, unsigned int));
     if (**str == 'p')
         return my_putptr(va_arg(ap, void *));
     if (**str == 's')
@@ -84,6 +80,6 @@ char *conversion_specifier(va_list ap, char **str, int *i)
         || **str == 'x' || **str == 'X')
         return get_boux(ap, modifier, str);
     if (**str == 'n')
-        print_n(ap, modifier, i);
+        return print_n(ap, modifier, i);
     return (NULL);
 }

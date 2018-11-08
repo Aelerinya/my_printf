@@ -46,8 +46,10 @@ static int update_flag(char **str, flags_t *flag)
     if (**str == '+' && flag->force_sign == 0)
         (*str)++, flag->force_sign = 1, correct = 1;
     if (**str == '.' && flag->precision == -1) {
-        *str = ((*str + 1)[0] == '-') ? *str + 1 : *str;
-        flag->precision = my_strtol(*str + 1, str), correct = 1;
+        if ((*str)[1] == '-' && is_in_str("0123456789", (*str)[2]))
+            flag->precision = 0, my_strtol(*str + 2, str), correct = 1;
+        else
+            flag->precision = my_strtol(*str + 1, str), correct = 1;
     } else if (is_in_str("123456789", **str) && flag->field_width == 0)
         flag->field_width = my_strtol(*str, str), correct = 1;
     return correct;
