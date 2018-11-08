@@ -18,7 +18,8 @@ SRC =	src/my_printf.c \
 	src/my_strtol.c \
 	src/flags_parser.c \
 	src/flag_modifiers.c \
-	src/my_strlen.c
+	src/my_strlen.c \
+	src/my_strdup.c
 OBJ = $(notdir $(SRC:.c=.o))
 TEST = 	tests/test_conversion_specifier.c \
 	tests/test_length_modifier.c \

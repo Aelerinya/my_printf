@@ -70,7 +70,7 @@ char *conversion_specifier(va_list ap, char **str, int *i, flags_t *flags)
     if (**str == 'p')
         return my_putptr(va_arg(ap, void *));
     if (**str == 's')
-        return va_arg(ap, char *);
+        return my_strdup(va_arg(ap, char *));
     if (**str == 'S')
         return my_showstr(va_arg(ap, char *));
     modifier = get_length_modifier(str);

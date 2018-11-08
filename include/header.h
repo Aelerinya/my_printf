@@ -25,6 +25,7 @@ char *my_nbr_base(unsigned long long int nbr, char const *base);
 char *my_showstr(char const *str);
 char *my_putptr(void *ptr);
 char *my_charstr(char c);
+char *my_strdup(char *str);
 
 char *my_strcpy(char const *dest, char *str);
 long int my_strtol(const char *nptr, char **endptr);
