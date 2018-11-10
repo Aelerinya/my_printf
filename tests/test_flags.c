@@ -59,6 +59,7 @@ Test(flag, signed_conversions, .init = redirect)
 Test(flag, precision, .init = redirect)
 {
     char *format = "%.2s %.2s %.4S %.2S %.x%.i%.2b %.2b %.2i %.2i";
+
     my_printf(format, "abc", "a", "\n", "\n", 0, 0, 3, 1, 23, 3);
     cr_assert_stdout_eq_str("ab a \\012 \\0 11 01 23 03");
 }
