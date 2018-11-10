@@ -8,7 +8,7 @@
 #include "header.h"
 #include <stdlib.h>
 
-static int is_in_str(char *str, char c)
+int is_in_str(char *str, char c)
 {
     for (int i = 0; str[i] != '\0'; i++)
         if (str[i] == c)

@@ -26,3 +26,19 @@ void alternate_form(char **str, char **result)
         new_result = *result;
     *result = new_result;
 }
+
+void field_width(char **str, flags_t *flags)
+{
+    int length = my_strlen(*str);
+    char *new = malloc(sizeof(char) * (flags->field_width + 1));
+    int i = 0;
+
+    if (!flags->left_adjusting)
+        for (i = 0; i < flags->field_width - length; new[i++] = ' ');
+    my_strcpy(new + i, *str);
+    if (flags->left_adjusting)
+        for (i = length; i < flags->field_width; new[i++] = ' ');
+    new[flags->field_width] = '\0';
+    free(*str);
+    *str = new;
+}

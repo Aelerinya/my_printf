@@ -30,6 +30,7 @@ char *my_strdup(char *str, flags_t *flags);
 char *my_strcpy(char const *dest, char *str);
 long int my_strtol(const char *nptr, char **endptr);
 int my_strlen(char *str);
+int is_in_str(char *str, char c);
 
 flags_t *get_flags(char **str);
 char *conversion_specifier(va_list ap, char **str, int *i, flags_t *flags);
@@ -42,3 +43,4 @@ char *print_n(va_list ap, char *modifier, int *i);
 void print_n2(va_list ap, char *modifier, int *i);
 
 void alternate_form(char **str, char **result);
+void field_width(char **str, flags_t *flags);

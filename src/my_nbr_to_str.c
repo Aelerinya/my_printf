@@ -30,7 +30,7 @@ char *my_nbr_to_str(long long int nb, flags_t *flags)
     int put_sign = (nb < 0 || flags->space || flags->force_sign) ? 1 : 0;
     int size = 2 + put_sign;
     int negative = (nb < 0) ? 1 : 0;
-    
+
     nb = (nb < 0) ? -nb : nb;
     for (long long int power = 10; power <= nb; power *= 10, size++);
     if (flags->precision != -1 && flags->precision + 1 > size)

@@ -1,4 +1,3 @@
-
 /*
 ** EPITECH PROJECT, 2018
 ** my_printf
@@ -41,6 +40,8 @@ int print_format(va_list ap, char **str, int *i)
         return (-1);
     if (flags->alternate)
         alternate_form(str, &result);
+    if (flags->field_width > my_strlen(result))
+        field_width(&result, flags);
     my_putstr(result, i);
     return (0);
 }
@@ -76,8 +77,7 @@ char *conversion_specifier(va_list ap, char **str, int *i, flags_t *flags)
     modifier = get_length_modifier(str);
     if (**str == 'i' || **str == 'd')
         return get_id(ap, modifier, flags);
-    if (**str == 'b' || **str == 'o' || **str == 'u'
-        || **str == 'x' || **str == 'X')
+    if (is_in_str("bouxX", **str))
         return get_boux(ap, modifier, str, flags);
     if (**str == 'n')
         return print_n(ap, modifier, i);
