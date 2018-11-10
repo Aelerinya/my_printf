@@ -70,16 +70,28 @@ char *get_length_modifier(char **str)
 
 char *conversion_specifier(va_list ap, char **str, int *i, flags_t *flags)
 {
+    switch (**str) {
+    case 'c':
+        return my_charstr(va_arg(ap, unsigned int));
+        break;
+    case 'p':
+        return my_putptr(va_arg(ap, void *));
+        break;
+    case 's':
+        return my_strdup(va_arg(ap, char *), flags);
+        break;
+    case 'S':
+        return my_showstr(va_arg(ap, char *), flags);
+        break;
+    default :
+        return conversion_specifier2(ap, str, i, flags);
+    }
+}
+
+char *conversion_specifier2(va_list ap, char **str, int *i, flags_t *flags)
+{
     char *modifier;
 
-    if (**str == 'c')
-        return my_charstr(va_arg(ap, unsigned int));
-    if (**str == 'p')
-        return my_putptr(va_arg(ap, void *));
-    if (**str == 's')
-        return my_strdup(va_arg(ap, char *), flags);
-    if (**str == 'S')
-        return my_showstr(va_arg(ap, char *), flags);
     modifier = get_length_modifier(str);
     if (**str == 'i' || **str == 'd')
         return get_id(ap, modifier, flags);

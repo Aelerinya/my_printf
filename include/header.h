@@ -34,6 +34,7 @@ int is_in_str(char *str, char c);
 
 flags_t *get_flags(char **str, va_list ap);
 char *conversion_specifier(va_list ap, char **str, int *i, flags_t *flags);
+char *conversion_specifier2(va_list ap, char **str, int *i, flags_t *flags);
 int print_format(va_list ap, char **str, int *i);
 char *get_length_modifier(char **str);
 
