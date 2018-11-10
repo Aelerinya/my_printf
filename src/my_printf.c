@@ -22,7 +22,7 @@ int my_printf(const char *format, ...)
         else if (*str == '%') {
             str++;
             if (print_format(ap, &str, &i) == -1)
-                return (84);
+                i++, my_putchar('%');
         } else
             i++, my_putchar(*str);
     }
