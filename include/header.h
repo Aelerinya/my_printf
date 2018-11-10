@@ -43,4 +43,5 @@ char *print_n(va_list ap, char *modifier, int *i);
 void print_n2(va_list ap, char *modifier, int *i);
 
 void alternate_form(char **str, char **result);
-void field_width(char **str, flags_t *flags);
+void field_width(char **result, flags_t *flags);
+void zero_padding(char *str, char **result, flags_t *flags);

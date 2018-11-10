@@ -40,8 +40,11 @@ int print_format(va_list ap, char **str, int *i)
         return (-1);
     if (flags->alternate)
         alternate_form(str, &result);
-    if (flags->field_width > my_strlen(result))
+    if (flags->field_width > my_strlen(result)) {
+        if (flags->zero_padding && !flags->left_adjusting)
+            zero_padding(*str, &result, flags);
         field_width(&result, flags);
+    }
     my_putstr(result, i);
     return (0);
 }
