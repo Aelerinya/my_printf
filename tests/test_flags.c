@@ -24,7 +24,8 @@ Test(flag, getflags)
 {
     char *str = "#0- +30.i";
     char *str2 = ".-4";
-    flags_t *flags = get_flags(&str);
+    va_list ap;
+    flags_t *flags = get_flags(&str, ap);
 
     cr_assert_eq(flags->alternate, 1);
     cr_assert_eq(flags->zero_padding, 1);
@@ -34,7 +35,7 @@ Test(flag, getflags)
     cr_assert_eq(flags->space, 1);
     cr_assert_eq(flags->force_sign, 1);
     free(flags);
-    flags = get_flags(&str2);
+    flags = get_flags(&str2, ap);
     cr_assert_eq(flags->precision, -1);
     free(flags);
 }

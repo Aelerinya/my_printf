@@ -7,6 +7,7 @@
 
 #include "header.h"
 #include <stdlib.h>
+#include <stdarg.h>
 
 int is_in_str(char *str, char c)
 {
@@ -55,16 +56,23 @@ static int update_flag(char **str, flags_t *flag)
     return (1);
 }
 
-flags_t *get_flags(char **str)
+flags_t *get_flags(char **str, va_list ap)
 {
     flags_t *flag = init_flag();
+    int tmp;
 
     while (update_flag(str, flag))
         (*str)++;
-    if (is_in_str("123456789", **str))
+    if (**str == '*') {
+        tmp = va_arg(ap, int);
+        (*str)++, flag->field_width = (tmp < 0) ? -tmp : tmp;
+    } else if (is_in_str("123456789", **str))
         flag->field_width = my_strtol(*str, str);
     if (**str == '.') {
-        if ((*str)[1] == '-')
+        if ((*str)[1] == '*') {
+            tmp = va_arg(ap, int);
+            (*str) += 2, flag->precision = (tmp < 0) ? -tmp : tmp;
+        } else if ((*str)[1] == '-')
             my_strtol(*str + 2, str);
         else
             flag->precision = my_strtol(*str + 1, str);

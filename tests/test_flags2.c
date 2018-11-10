@@ -25,3 +25,9 @@ Test(flag, zero_padding, .init = redirect)
     my_printf("%0-3i|%03i|%#05x|%05X|%03s|%#05.2x", 2, 2, 11, 11, "a", 11);
     cr_assert_stdout_eq_str("2  |002|0x00b|0000B|  a| 0x0b");
 }
+
+Test(flag, star_char, .init = redirect)
+{
+    my_printf("%*x|%.*x", 3, 11, 3, 11);
+    cr_assert_stdout_eq_str("  b|00b");
+}

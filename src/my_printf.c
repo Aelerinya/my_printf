@@ -36,7 +36,7 @@ int my_printf(const char *format, ...)
 int print_format(va_list ap, char **str, int *i)
 {
     char *result;
-    flags_t *flags = get_flags(str);
+    flags_t *flags = get_flags(str, ap);
 
     result = conversion_specifier(ap, str, i, flags);
     if (result == NULL)
