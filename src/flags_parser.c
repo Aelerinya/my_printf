@@ -33,35 +33,41 @@ static flags_t *init_flag(void)
 
 static int update_flag(char **str, flags_t *flag)
 {
-    int correct = 0;
-
-    if (**str == '#' && flag->alternate == 0)
-        (*str)++, flag->alternate = 1, correct = 1;
-    if (**str == '0' && flag->zero_padding == 0)
-        (*str)++, flag->zero_padding = 1, correct = 1;
-    if (**str == '-' && flag->left_adjusting == 0)
-        (*str)++, flag->left_adjusting = 1, correct = 1;
-    if (**str == ' ' && flag->space == 0)
-        (*str)++, flag->space = 1, correct = 1;
-    if (**str == '+' && flag->force_sign == 0)
-        (*str)++, flag->force_sign = 1, correct = 1;
-    if (**str == '.' && flag->precision == -1) {
-        if ((*str)[1] == '-' && is_in_str("0123456789", (*str)[2]))
-            my_strtol(*str + 2, str), correct = 1;
-        else
-            flag->precision = my_strtol(*str + 1, str), correct = 1;
-    } else if (is_in_str("123456789", **str) && flag->field_width == 0)
-        flag->field_width = my_strtol(*str, str), correct = 1;
-    return correct;
+    switch (**str) {
+    case '#':
+        flag->alternate = 1;
+        break;
+    case '0':
+        flag->zero_padding = 1;
+        break;
+    case '-':
+        flag->left_adjusting = 1;
+        break;
+    case ' ':
+        flag->space = 1;
+        break;
+    case '+':
+        flag->force_sign = 1;
+        break;
+    default :
+        return (0);
+    }
+    return (1);
 }
 
 flags_t *get_flags(char **str)
 {
     flags_t *flag = init_flag();
 
-    while (is_in_str("#0- +*.123456789", **str)) {
-        if (update_flag(str, flag) == 0)
-            return NULL;
+    while (update_flag(str, flag))
+        (*str)++;
+    if (is_in_str("123456789", **str))
+        flag->field_width = my_strtol(*str, str);
+    if (**str == '.') {
+        if ((*str)[1] == '-')
+            my_strtol(*str + 2, str);
+        else
+            flag->precision = my_strtol(*str + 1, str);
     }
     return flag;
 }

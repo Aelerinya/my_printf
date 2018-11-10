@@ -14,15 +14,18 @@ int my_printf(const char *format, ...)
 {
     va_list ap;
     int i = 0;
+    char *copy;
 
     va_start(ap, format);
     for (char *str = (char *)format; *str != '\0'; str++) {
         if (*str == '%' && str[1] == '%')
             str++, i++, my_putchar('%');
         else if (*str == '%') {
-            str++;
-            if (print_format(ap, &str, &i) == -1)
+            copy = str + 1;
+            if (print_format(ap, &copy, &i) == -1)
                 i++, my_putchar('%');
+            else
+                str = copy;
         } else
             i++, my_putchar(*str);
     }

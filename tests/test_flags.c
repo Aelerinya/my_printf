@@ -22,7 +22,7 @@ Test(flag, alternate, .init = redirect)
 
 Test(flag, getflags)
 {
-    char *str = "#0.- +30i";
+    char *str = "#0- +30.i";
     char *str2 = ".-4";
     flags_t *flags = get_flags(&str);
 
@@ -39,16 +39,11 @@ Test(flag, getflags)
     free(flags);
 }
 
-/*Test(flag, invalid_syntax, .init = redirect)
+Test(flag, invalid_syntax, .init = redirect)
 {
-    cr_assert_eq(my_printf("%##i", 3), 84);
-    cr_assert_eq(my_printf("%  i", 3), 84);
-    cr_assert_eq(my_printf("%--i", 3), 84);
-    cr_assert_eq(my_printf("%++i", 3), 84);
-    cr_assert_eq(my_printf("%00i", 3), 84);
-    cr_assert_eq(my_printf("%1-1i", 3), 84);
-    cr_assert_eq(my_printf("%.3.2i", 3), 84);
-    }*/
+    my_printf("%.#i", 3);
+    cr_assert_stdout_eq_str("%.#i");
+}
 
 Test(flag, signed_conversions, .init = redirect)
 {
