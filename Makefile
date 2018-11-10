@@ -23,7 +23,8 @@ SRC =	src/my_printf.c \
 OBJ = $(notdir $(SRC:.c=.o))
 TEST = 	tests/test_conversion_specifier.c \
 	tests/test_length_modifier.c \
-	tests/test_flags.c
+	tests/test_flags.c \
+	tests/test_flags2.c
 TEST_OBJ = $(notdir $(SRC:.c=.o)) $(notdir $(TEST:.c=.o))
 NAME = libmy.a
 
