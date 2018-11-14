@@ -37,11 +37,10 @@ void zero_padding(char *str, char **result, flags_t *flags)
     if (!is_in_str("idbouxX", *str) || flags->precision != -1)
         return;
     new = malloc(sizeof(char) * (flags->field_width + 1));
-    if ((*str == 'x' || *str == 'X') && flags->alternate) {
-        start = 2;
-        new[0] = (*result)[0];
-        new[1] = (*result)[1];
-    }
+    if (is_in_str("xX", (*result)[1]) || is_in_str(" +-", **result))
+        new[0] = (*result)[start++];
+    if (is_in_str("xX", (*result)[1]))
+        new[1] = (*result)[start++];
     for (i = start; i < flags->field_width - length + start; new[i++] = '0');
     my_strcpy(new + i, *result + start);
     new[flags->field_width] = '\0';
