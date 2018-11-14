@@ -33,8 +33,8 @@ char *my_nbr_to_str(long long int nb, flags_t *flags)
 
     nb = (nb < 0) ? -nb : nb;
     for (long long int power = 10; power <= nb; power *= 10, size++);
-    if (flags->precision != -1 && flags->precision + 1 > size)
-        size = flags->precision + 1;
+    if (flags->precision != -1 && flags->precision + 1 + put_sign > size)
+        size = flags->precision + 1 + put_sign;
     str = prepare_result(flags, size, negative);
     for (int i = size - 2; i >= put_sign; i--) {
         str[i] = nb % 10 + 48;
