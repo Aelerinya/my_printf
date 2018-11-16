@@ -14,19 +14,14 @@ int my_printf(const char *format, ...)
 {
     va_list ap;
     int i = 0;
-    char *copy;
 
     va_start(ap, format);
     for (char *str = (char *)format; *str != '\0'; str++) {
         if (*str == '%' && str[1] == '%')
             str++, i++, my_putchar('%');
-        else if (*str == '%') {
-            copy = str + 1;
-            if (print_format(ap, &copy, &i) == -1)
-                i++, my_putchar('%');
-            else
-                str = copy;
-        } else
+        else if (*str == '%')
+            str++, print_format(ap, &str, &i);
+        else
             i++, my_putchar(*str);
     }
     va_end(ap);
@@ -36,13 +31,15 @@ int my_printf(const char *format, ...)
 int print_format(va_list ap, char **str, int *i)
 {
     char *result;
+    char *copy = *str - 1;
     flags_t *flags = get_flags(str, ap);
 
     result = conversion_specifier(ap, str, i, flags);
     if (result == NULL) {
-        if (**str == '%')
-            my_putchar('%'), (*i)++;
-        return (**str == '%') ? 0 : -1;
+        my_putchar('%'), (*i)++;
+        if (**str != '%')
+            *str = copy;
+        return -1;
     }
     if (flags->alternate)
         alternate_form(str, &result);
