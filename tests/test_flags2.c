@@ -31,3 +31,9 @@ Test(flag, star_char, .init = redirect)
     my_printf("%*x|%.*x", 3, 11, 3, 11);
     cr_assert_stdout_eq_str("  b|00b");
 }
+
+Test(flag, trailing_percentage, .init = redirect)
+{
+    my_printf("%30%");
+    cr_assert_stdout_eq_str("%");
+}

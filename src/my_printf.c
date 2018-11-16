@@ -39,8 +39,11 @@ int print_format(va_list ap, char **str, int *i)
     flags_t *flags = get_flags(str, ap);
 
     result = conversion_specifier(ap, str, i, flags);
-    if (result == NULL)
-        return (-1);
+    if (result == NULL) {
+        if (**str == '%')
+            my_putchar('%'), (*i)++;
+        return (**str == '%') ? 0 : -1;
+    }
     if (flags->alternate)
         alternate_form(str, &result);
     if (flags->field_width > my_strlen(result)) {
